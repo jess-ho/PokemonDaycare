@@ -1,0 +1,24 @@
+@keyframes animate {
+  0% {
+    top: 190px;
+    opacity: 1;
+  }
+  
+  3% {
+    top: 185px;
+  }
+  
+  5% {
+    top: 187px;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes play {
+  100% {
+    background-position: -64px;
+  }
+}

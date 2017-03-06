@@ -1,0 +1,43 @@
+// FONTS
+
+@font-face {
+	font-family: 'Pokemon GB';
+	src: url('../Pokemon_GB.ttf');
+} 
+
+$fontface: "Pokemon GB", "VT323", "PT Sans", sans-serif;
+
+// COLORS
+
+$white: #fefefe;
+$whiteAlpha: rgba(255,255,255,0.3);
+$black: #000;
+$blackAlpha: rgba(0,0,0,0.6);
+// $gray: #
+$accent: #E6785D;
+$accentShadow: #BA2334;
+
+// GLOBAL STYLES
+
+a {
+	text-decoration: none;
+	color: $accentShadow;
+	text-shadow: 1px 1px 1px $accent;
+	transition: all 0.4s ease;
+
+	&:hover, &:focus, &:active {
+		color: $accent;
+		text-shadow: 1px 1px 1px $accentShadow;
+	}
+}
+
+ul {
+	list-style: none;
+}
+
+html {
+	font-family: $fontface;
+}
+
+
+

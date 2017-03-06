@@ -1,0 +1,213 @@
+@import 'partials/setup';
+@import 'partials/misc';
+@import 'partials/header';
+@import 'partials/footer';
+
+.currPoke {
+	text-transform: capitalize;
+}
+
+// .currPoke::before {
+// 	content: '';
+// 	position: absolute;
+// 	height: 100%;
+// 	width: 1px;
+// }
+
+main {
+	position: relative;
+	padding-top: 10px;
+	background: url('../assets/daycare1.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.overlay {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background: $blackAlpha;
+	transition: all .4s ease;
+}
+
+.choosePoke {
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.pick {
+	// color: $accentShadow;
+	background: $whiteAlpha;
+	padding: 20px;
+}
+
+.choosePoke_option {
+	text-transform: capitalize;
+	padding: 40px;
+	margin: 0;
+	background: $whiteAlpha;
+}
+
+.choosePoke_error {
+	transform: scale(0);
+	transform-origin: center;
+	position: relative;
+	display: inline-block;
+	margin: 0 auto;
+	z-index: 99;
+	padding: 50px;
+	transition: transform 0.5s ease;
+	background: $blackAlpha;
+	color: $white;
+}
+
+.show {
+	transform: scale(1);
+}
+
+.choosePoke_img {
+	text-align: center;
+	// width: 200px;
+	// height: 120px;
+	// margin: 0 auto;
+	position: relative;
+	background: $whiteAlpha;
+}
+
+.selectPoke {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+form{
+	padding: 30px;
+	font-size: 14px;
+}
+
+input[type=text] {
+	display: block;
+	padding: 5px;
+	margin: 20px auto;
+	border-radius: 7px;
+	border: 2px solid gray;
+
+	&:focus, &:active {
+		outline: none;
+		box-shadow: inset 0px 0px 2px $black;
+	}
+}
+
+input[type=submit] {
+	margin-top: 20px;
+	padding: 5px 15px;
+	background: $white;
+	border: 2px solid $accentShadow;
+	border-radius: 7px;
+
+	&:hover, &:active, &:focus {
+		box-shadow: inset 0px 0px 2px $black;
+	}
+}
+
+.choosePoke button {
+	padding: 5px 15px;
+	background: $white;
+	border: 2px solid $accent;
+	border-radius: 7px;
+	margin: 20px 0;
+	font-size: 14px;
+
+	&:hover, &:active, &:focus {
+		box-shadow: inset 0px 0px 2px $black;
+	}	
+}
+
+.modalBox {
+	display: none;
+	position: absolute;
+	z-index: 99;	
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+	background: $white;
+	border: 1px solid $black;
+	border-radius: 7px;
+	box-shadow: 2px 2px 8px 1px $blackAlpha;
+}
+
+.modalBox_field {
+	background-position: center center;
+	width: 480px;
+	max-width: 480px;
+	height: 480px;
+	position: relative;
+}
+
+.modalBox_count {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	position: relative;
+	top: 32px;
+}
+
+.modalBox_count-box {
+	background: $white;
+	text-align: center;
+	padding: 2px 50px;
+	width: 50px;
+}
+
+.happy-box {
+	background: url('../assets/heart.png') 2% center no-repeat $whiteAlpha;
+}
+
+.hunger-box {
+	background: url('../assets/tear.png') 2% center no-repeat $whiteAlpha;
+}
+
+.modalBox_sprite-img {
+	background-position: left center;
+	width: 32px;
+	height: 36px;
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    animation: play 0.8s steps(2) infinite;
+}
+
+.modalBox_sprite-mood {
+	opacity: 0;
+	position: relative;
+	top: 187px;
+	left: 240px;
+}
+
+.mood-animate {
+	animation: animate 1.2s ease;
+}
+
+.modalBox_actions {
+	display: flex;
+	justify-content: space-around;
+	padding: 10px;
+	font-size: 12px;
+}
+
+.modalBox_actions-btn {
+	padding: 5px 10px;
+}
+
+@import 'partials/animation';
+@import 'partials/media';

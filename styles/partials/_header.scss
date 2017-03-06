@@ -1,0 +1,13 @@
+header {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background: $white;
+}
+
+h1 {
+	color: $accent;
+	text-shadow: 2px 2px 1px $accentShadow;
+}
