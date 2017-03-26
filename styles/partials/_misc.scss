@@ -10,10 +10,9 @@ $fontface: "Pokemon GB", "VT323", "PT Sans", sans-serif;
 // COLORS
 
 $white: #fefefe;
-$whiteAlpha: rgba(255,255,255,0.3);
+$whiteAlpha: rgba(255,255,255,0.6);
 $black: #000;
 $blackAlpha: rgba(0,0,0,0.6);
-// $gray: #
 $accent: #E6785D;
 $accentShadow: #BA2334;
 
@@ -39,5 +38,8 @@ html {
 	font-family: $fontface;
 }
 
-
+.wrapper {
+	width: 90%;
+	margin: 0 auto;
+}
 

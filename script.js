@@ -54,14 +54,14 @@ appPokemon.displayPoke = function(poke) {
 	// grab spritesheets
 	var spritesheets = appPokemon.spritesheets
 	var sheets = spritesheets.filter(function(sheet) {
-		return sheet.name === name
+		return sheet.name === 'pikachu'
 	}).map(function(sheet) {
 		return sheet.spritesheet
 	})
 
 	// grab background
 	var fields = spritesheets.filter(function(field) {
-		return field.name === name
+		return field.name === 'pikachu'
 	}).map(function(field) {
 		return field.background
 	})
@@ -86,7 +86,8 @@ appPokemon.events = function() {
 		// bring them to the game page on click
 		$('button#playPoke').on('click', function() { // ask about nesting and stuff
 			// displays pokemon name in header
-			$('h1').find('span').text(` ${userInput}`)
+			// $('h1').find('span').text(` ${userInput}`)
+			$('h1').find('span').text(` Pikachu`)
 
 			// displays game modal
 			$('.modalBox').css('display', 'inline-block')

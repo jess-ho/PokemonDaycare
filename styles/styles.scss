@@ -7,16 +7,10 @@
 	text-transform: capitalize;
 }
 
-// .currPoke::before {
-// 	content: '';
-// 	position: absolute;
-// 	height: 100%;
-// 	width: 1px;
-// }
-
 main {
 	position: relative;
-	padding-top: 10px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 	background: url('../assets/daycare1.png');
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -42,7 +36,6 @@ main {
 }
 
 .pick {
-	// color: $accentShadow;
 	background: $whiteAlpha;
 	padding: 20px;
 }
@@ -73,9 +66,6 @@ main {
 
 .choosePoke_img {
 	text-align: center;
-	// width: 200px;
-	// height: 120px;
-	// margin: 0 auto;
 	position: relative;
 	background: $whiteAlpha;
 }
@@ -94,6 +84,7 @@ form{
 
 input[type=text] {
 	display: block;
+	text-align: center;
 	padding: 5px;
 	margin: 20px auto;
 	border-radius: 7px;
@@ -106,7 +97,6 @@ input[type=text] {
 }
 
 input[type=submit] {
-	margin-top: 20px;
 	padding: 5px 15px;
 	background: $white;
 	border: 2px solid $accentShadow;
@@ -122,7 +112,7 @@ input[type=submit] {
 	background: $white;
 	border: 2px solid $accent;
 	border-radius: 7px;
-	margin: 20px 0;
+	margin-top: 50px;
 	font-size: 14px;
 
 	&:hover, &:active, &:focus {
