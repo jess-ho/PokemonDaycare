@@ -186,6 +186,7 @@ a:hover, a:focus, a:active {
 
 ul {
   list-style: none;
+  line-height: 24px;
 }
 
 html {
@@ -209,6 +210,7 @@ header {
 h1 {
   color: #E6785D;
   text-shadow: 2px 2px 1px #BA2334;
+  line-height: 46px;
 }
 
 footer {
@@ -299,7 +301,7 @@ main {
 }
 
 form {
-  padding: 30px;
+  padding: 20px;
   font-size: 14px;
 }
 
@@ -357,6 +359,7 @@ input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus {
 
 .modalBox_field {
   background-position: center center;
+  background-size: contain;
   width: 480px;
   max-width: 480px;
   height: 480px;
@@ -448,7 +451,38 @@ input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus {
     justify-content: center;
     text-align: center;
   }
+  form {
+    padding: 0;
+  }
+  input[type=text] {
+    width: 100%;
+  }
+  nav ul {
+    padding: 0;
+  }
   footer {
     flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .modalBox {
+    max-width: 100%;
+  }
+  .modalBox_field {
+    max-width: 100%;
+  }
+}
+
+@media all and (max-width: 440px) {
+  .pick {
+    line-height: 23px;
+  }
+  .choosePoke button {
+    line-height: 18px;
+  }
+  footer {
+    line-height: 17px;
   }
 }

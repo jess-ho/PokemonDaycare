@@ -67,7 +67,7 @@ appPokemon.displayPoke = function(poke) {
 	})
 
 	// when form is submitted, the spritesheet and the background is added. even if the modal does not appear
-	$('.modalBox_field').css('background', `url(${fields})`)
+	$('.modalBox_field').css('background', `url(${fields})`).css('background-position', 'center center')
 	$('.modalBox_sprite-img').css('background', `url(${sheets})`)
 
 
@@ -105,32 +105,32 @@ appPokemon.events = function() {
 
 appPokemon.startModal = function() {
 	// counters
-	var happy = 10.0
-	var hunger = 10.0
+	var happy = 50
+	var hunger = 50
 
 	$('.happy-box').text(happy)
 	$('.hunger-box').text(hunger)
 
 	function happyDown() {
-	  $('.happy-box').text(happy)
-	  if (happy > 0) {
-	    happy--
-	  }
+		$('.happy-box').text(happy)
+		if (happy > 0) {
+		happy--
+		}
 	}
 
 	function hungerDown() {
-	  $('.hunger-box').text(hunger)
-	  if (hunger > 0) {
-	    hunger--
-	  }
+		$('.hunger-box').text(hunger)
+		if (hunger > 0) {
+		hunger--
+		}
 	}
 
 	var happyCount = window.setInterval(function() {
-	  happyDown()
+		happyDown()
 	}, 10000)
 
 	var hungerCount = window.setInterval(function() {
-	  hungerDown()
+		hungerDown()
 	}, 5000)
 
 	$('button#petPoke').on('click', function(e) {
@@ -142,9 +142,9 @@ appPokemon.startModal = function() {
 		})
 
 		// run the happy function
-		if (0 < happy < 10) {
-			happy += .5
+		if (hunger >= 0 && hunger < 50) {
 			$('.happy-box').text(happy)
+			happy++
 		}
 	})
 
@@ -156,9 +156,9 @@ appPokemon.startModal = function() {
 		})
 
 		// run the hunger function
-		if (0 < hunger < 10) {
-			hunger += .5
+		if (hunger >= 0 && hunger < 50) {
 			$('.hunger-box').text(hunger)
+			hunger++
 		}
 	})
 }

@@ -5,7 +5,44 @@
 		text-align: center;
 	}
 
+	form {
+		padding: 0;
+	}
+
+	input[type=text] {
+		width: 100%;
+	}
+
+	nav ul {
+		padding: 0;
+	}
+
 	footer {
 		flex-direction: column;
+		text-align: center;
+	}
+}
+
+@media all and (max-width: 480px) {
+	.modalBox {
+		max-width: 100%;
+	}
+
+	.modalBox_field {
+		max-width: 100%;
+	}
+}
+
+@media all and (max-width: 440px) {
+	.pick {
+		line-height: 23px;
+	}
+
+	.choosePoke button {
+		line-height: 18px;
+	}
+
+	footer {
+		line-height: 17px;
 	}
 }
