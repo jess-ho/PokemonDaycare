@@ -358,8 +358,6 @@ input[type=submit]:hover, input[type=submit]:active, input[type=submit]:focus {
 }
 
 .modalBox_field {
-  background-position: center center;
-  background-size: contain;
   width: 480px;
   max-width: 480px;
   height: 480px;
