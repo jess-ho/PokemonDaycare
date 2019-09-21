@@ -117,13 +117,13 @@ input[type=submit] {
 
 	&:hover, &:active, &:focus {
 		box-shadow: inset 0px 0px 2px $black;
-	}	
+	}
 }
 
 .modalBox {
 	display: none;
 	position: absolute;
-	z-index: 99;	
+	z-index: 99;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);

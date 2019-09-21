@@ -1,174 +1,227 @@
-var appPokemon = {}
+// Cross-browser document ready function in vanilla JS
+// https://www.competa.com/blog/cross-browser-document-ready-with-vanilla-javascript/#targetText=Cross%2Dbrowser%20Document%20Ready%20with%20Vanilla%20JavaScript&targetText=In%20jQuery%2C%20developers%20are%20used,stuff%20is%20on%20your%20page.
+var domIsReady = (domIsReady => {
+	const isBrowserIeOrNot = function() {
+		return !document.attachEvent || typeof document.attachEvent === "undefined"
+			? "not-ie"
+			: "ie";
+	};
 
-appPokemon.url = 'http://pokeapi.co/api/v2/pokemon/'
+	domIsReady = callback => {
+		if (callback && typeof callback === "function") {
+			if (isBrowserIeOrNot() !== "ie") {
+				document.addEventListener("DOMContentLoaded", () => {
+				return callback();
+			});
+			} else {
+				document.attachEvent("onreadystatechange", () => {
+					if (document.readyState === "complete") {
+						return callback();
+					}
+				});
+			}
+		} else {
+			console.error("The callback is not a function!");
+		}
+	};
 
-appPokemon.getInfo = function(userInput) {
-	$.ajax({
-		url: appPokemon.url + userInput + '/',
-		method: 'GET',
-		dataType: 'json'
-	}).then(function(data) {
-		appPokemon.displayPoke(data)
-	}).fail(function() {
-		$('.selectPoke').remove()
-		$('.choosePoke_option').empty()
-		$('.choosePoke_error').addClass('show')
-		setTimeout(function() {
-			$('.choosePoke_error').removeClass('show')
-		}, 4000) 
-	})
-}
+	return domIsReady;
+})(domIsReady || {});
+
+// Create a fresh Pokedex.
+const P = new Pokedex.Pokedex();
+
+// Create new instance of a Pokemon.
+const appPokemon = {};
+
+appPokemon.getInfo = (userInput) => {
+	P.getPokemonByName(userInput.toLowerCase())
+		.then(response => {
+			appPokemon.displayPoke(response);
+		})
+		.catch((err) => {
+			const selectedPokemon = document.querySelector('.selectPoke');
+			const inputField = document.querySelector('.choosePoke_option');
+			const inputError = document.querySelector('.choosePoke_error');
+			inputField.innerText = '';
+			inputError.classList.add('show');
+			if (selectedPokemon) {
+				selectedPokemon.style.display = 'none';
+			}
+			setTimeout(() => {
+				inputError.classList.remove('show');
+			}, 4000);
+		});
+};
 
 // pokemon spritesheet for all 811??!
 appPokemon.spritesheets = [
 	{
-		name: 'pikachu',
-		spritesheet: 'assets/pikachu-1.png',
-		background: 'assets/modal.png'
+		name: "pikachu",
+		spritesheet: "assets/pikachu-1.png",
+		background: "assets/modal.png"
 	}
-]
+];
 
-appPokemon.displayPoke = function(poke) {
-	// empty sprite 
-	$('.selectPoke').remove()
+appPokemon.displayPoke = (poke) => {
+	// empty sprite
+	const selectedPokemon = document.querySelector('.selectPoke');
+	if (selectedPokemon) {
+		selectedPokemon.style.display = 'none';
+	}
 
-	// find image associated with pokemon (name) 
-	var name = poke.name
-
-	// var id = poke.id
+	// find image associated with pokemon (name)
+	const name = poke.name;
 
 	// find default front-facing sprite
-	var sprite = poke.sprites.front_default
-
-	// var stats = poke.stats
-
-	// var pokeName = $('<h2>').text(name)
-
-	// create img tag that shows the pokemon sprite
-	var pokeSprite = $('<img>').attr('src', sprite).addClass('selectPoke')
+	const sprite = poke.sprites.front_default;
 
 	// display sprite image and name
-	$('.choosePoke_option').text(name)
-	$('.choosePoke_img').append(pokeSprite)
-	
+	const pokemonImageContainer = document.querySelector('.choosePoke_img');
+	const pokemonName = document.querySelector('.choosePoke_option');
+	const pokemonImage = document.createElement('img');
+	pokemonImage.innerHTML = `<img src='${sprite}' class='selectPoke'>`;
+	while (pokemonImage.firstChild) {
+		pokemonImageContainer.append(pokemonImage.firstChild);
+	}
+	pokemonName.innerText = name;
+
 	// grab spritesheets
-	var spritesheets = appPokemon.spritesheets
-	var sheets = spritesheets.filter(function(sheet) {
-		return sheet.name === 'pikachu'
-	}).map(function(sheet) {
-		return sheet.spritesheet
-	})
+	const spritesheets = appPokemon.spritesheets;
+	const sheets = spritesheets
+		.filter((sheet) => {
+			return sheet.name === "pikachu";
+		})
+		.map((sheet) => {
+			return sheet.spritesheet;
+		});
 
 	// grab background
-	var fields = spritesheets.filter(function(field) {
-		return field.name === 'pikachu'
-	}).map(function(field) {
-		return field.background
-	})
+	const fields = spritesheets
+		.filter((field) => {
+			return field.name === "pikachu";
+		})
+		.map((field) => {
+			return field.background;
+		});
 
 	// when form is submitted, the spritesheet and the background is added. even if the modal does not appear
-	$('.modalBox_field').css('background', `url(${fields})`).css('background-position', 'center center')
-	$('.modalBox_sprite-img').css('background', `url(${sheets})`)
+	const modalField = document.querySelector('.modalBox_field');
+	const modalSprite = document.querySelector('.modalBox_sprite-img');
+	modalField.style['background-image'] = `url(${fields})`;
+	modalField.style['background-position'] = 'center center';
+	modalSprite.style['background-image'] = `url(${sheets})`;
+};
 
-
-}
-
-appPokemon.events = function() {
-	$('form').on('submit', function(e) {
-		e.preventDefault()
+appPokemon.events = () => {
+	const form = document.querySelector('form');
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
 		// userInput stores the value/pokemon that was entered
-		var userInput = $('input#getpoke').val().toLowerCase()
+		const userInput = document.querySelector('input#getpoke').value.toLowerCase();
 		// playPoke button is enabled
-		$('button#playPoke').removeAttr('disabled')
+		const playButton = document.querySelector('button#playPoke');
+		playButton.removeAttribute('disabled');
 		// calls getInfo , which calls displayPoke
-		appPokemon.getInfo(userInput)
+		appPokemon.getInfo(userInput);
 
 		// bring them to the game page on click
-		$('button#playPoke').on('click', function() { // ask about nesting and stuff
+		playButton.addEventListener('click', () => {
+			// ask about nesting and stuff
 			// displays pokemon name in header
-			// $('h1').find('span').text(` ${userInput}`)
-			$('h1').find('span').text(` Pikachu`)
+			const header = document.querySelector('h1 span');
+			header.innerText = ' Pikachu';
 
-			// displays game modal
-			$('.modalBox').css('display', 'inline-block')
+			const modal = document.querySelector('.modalBox');
+			modal.style.display = 'inline-block';
 
-			//overlay covers the section behind the modal
-			$('.overlay').css({'opacity': '1', 'z-index': '1'})
+			const overlay = document.querySelector('.overlay');
+			overlay.style.opacity = '1';
+			overlay.style['z-index'] = '1';
 
-			appPokemon.startModal()
+			appPokemon.startModal();
 
-			// disables the button again
-			$(this).attr('disabled', true)
-		})
-	})
-}
+			playButton.setAttribute('disabled', '');
+		});
+	});
+};
 
-appPokemon.startModal = function() {
+appPokemon.startModal = () => {
 	// counters
-	var happy = 50
-	var hunger = 50
+	let happy = 50;
+	let hunger = 50;
 
-	$('.happy-box').text(happy)
-	$('.hunger-box').text(hunger)
+	const happyCounter = document.querySelector('.happy-box');
+	const hungerCounter = document.querySelector('.hunger-box');
+	happyCounter.innerText = happy;
+	hungerCounter.innerText = hunger;
 
-	function happyDown() {
-		$('.happy-box').text(happy)
+	const happyDown = () => {
+		happyCounter.innerText = happy;
 		if (happy > 0) {
-		happy--
+			happy--;
 		}
 	}
 
-	function hungerDown() {
-		$('.hunger-box').text(hunger)
+	const hungerDown = () => {
+		hungerCounter.innerText = hunger;
 		if (hunger > 0) {
-		hunger--
+			hunger--;
 		}
 	}
 
-	var happyCount = window.setInterval(function() {
-		happyDown()
-	}, 10000)
+	const happyTimer = window.setInterval(() => {
+		happyDown();
+	}, 10000);
 
-	var hungerCount = window.setInterval(function() {
-		hungerDown()
-	}, 5000)
+	const hungerTimer = window.setInterval(() => {
+		hungerDown();
+	}, 10000);
 
-	$('button#petPoke').on('click', function(e) {
-		e.preventDefault()
-
+	const petButton = document.querySelector('button#petPoke');
+	petButton.addEventListener('click', (e) => {
+		e.preventDefault();
 		// pokemon emoticon pops up
-		$('.modalBox_sprite-mood').attr('src', 'assets/happy-1.png').addClass('mood-animate').one('animationend', function() {
-			$(this).removeClass('mood-animate')
-		})
+		const spriteEmote = document.querySelector('.modalBox_sprite-mood');
+		spriteEmote.setAttribute('src', 'assets/happy-1.png');
+		spriteEmote.classList.add('mood-animate');
+		spriteEmote.addEventListener('animationend', () => {
+			spriteEmote.classList.remove('mood-animate');
+		});
 
 		// run the happy function
-		if (hunger >= 0 && hunger < 50) {
-			$('.happy-box').text(happy)
-			happy++
+		if (happy >= 0 && happy < 50) {
+			happyCounter.innerText = happy;
+			happy++;
 		}
-	})
+	});
 
-	$('button#feedPoke').on('click', function(e) {
-		e.preventDefault()
+	const feedButton = document.querySelector('button#feedPoke');
+	feedButton.addEventListener('click', (e) => {
+		e.preventDefault();
 
-		$('.modalBox_sprite-mood').attr('src', 'assets/happy-1.png').addClass('mood-animate').one('animationend', function() {
-			$(this).removeClass('mood-animate')
-		})
+		const spriteEmote = document.querySelector('.modalBox_sprite-mood');
+		spriteEmote.setAttribute('src', 'assets/happy-1.png');
+		spriteEmote.classList.add('mood-animate');
+		spriteEmote.addEventListener('animationend', () => {
+			spriteEmote.classList.remove('mood-animate');
+		});
 
 		// run the hunger function
 		if (hunger >= 0 && hunger < 50) {
-			$('.hunger-box').text(hunger)
-			hunger++
+			hungerCounter.innerText = hunger;
+			hunger++;
 		}
-	})
-}
+	});
+};
 
-appPokemon.init = function() {
-	appPokemon.events()
-}
+appPokemon.init = () => {
+	appPokemon.events();
+};
 
-$(function() {
-	appPokemon.init();
-})
-
-
+// DOM is ready.
+((document, window, domIsReady, undefined) => {
+	domIsReady(() => {
+		appPokemon.init();
+	});
+})(document, window, domIsReady);
