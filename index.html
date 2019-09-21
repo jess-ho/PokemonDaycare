@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Pokémon Daycare</title>
-	
-	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="styles/styles.css">
-	<link href="https://fonts.googleapis.com/css?family=PT+Sans|VT323" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokémon Daycare</title>
 
-	<!-- CREDITS TO: 
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=PT+Sans|VT323"
+      rel="stylesheet"
+    />
+
+    <!-- CREDITS TO:
 	Jackster Productions for Pokemon font - http://www.fontspace.com/jackster-productions/pokemon-gb
 
 	IcyKerpymon for tilesets - http://www.serebiiforums.com/showthread.php?367299-Tileset-Project
@@ -18,98 +24,100 @@
 	Spriters Resource and Lance for more tilesets - https://www.spriters-resource.com/game_boy_advance/pokemonemerald/sheet/8362/
 
 	PokéCommunity for Pikachu Spritesheet - https://www.pokecommunity.com/archive/index.php/t-360846.html OR http://s80.photobucket.com/user/DotCimages/media/025.png.html
-	
+
 	TheGameMaster27 (Deviantart) for more spritesheets - http://thegamemaster27.deviantart.com/gallery/27056821/Pokemon-Sprite-Sheets -->
+  </head>
+  <body>
+    <header class="wrapper">
+      <h1>Jessica's Daycare /<span class="currPoke"></span></h1>
 
-</head>
-<body>
-	<header class="wrapper">
-		<h1>Jessica's Daycare /<span class="currPoke"></span></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Start Over</a></li>
+        </ul>
+      </nav>
+    </header>
 
-		<nav>
-			<ul>
-				<li><a href="index.html">Start Over</a></li>
-			</ul>
-		</nav>
-	</header>
+    <main>
+      <!-- overlay appears when modal box is activated -->
+      <div class="overlay"></div>
 
-	<main>
-		<!-- overlay appears when modal box is activated -->
-		<div class="overlay"></div>
+      <!-- beginning screen, hidden under overlay -->
+      <section class="choosePoke">
+        <p class="pick">Pick your Pokémon:</p>
 
-		<!-- beginning screen, hidden under overlay -->
-		<section class="choosePoke">
-			<p class="pick">Pick your Pokémon: </p>
+        <!-- pokemon's name will appear -->
+        <h2 class="choosePoke_option"></h2>
 
-			<!-- pokemon's name will appear -->
-			<h2 class="choosePoke_option"></h2>
+        <!-- sprite of pokemon, from API -->
+        <div class="choosePoke_img">
+          <!-- error message if name cannot be found in API -->
+          <p class="choosePoke_error">Try again!</p>
+        </div>
 
-			
-			<!-- sprite of pokemon, from API -->
-			<div class="choosePoke_img">
-				<!-- error message if name cannot be found in API -->
-				<p class="choosePoke_error">Try again!</p>
+        <!-- where the user can type the pokemon -->
+        <form action="">
+          <input
+            type="text"
+            placeholder="e.g. Pikachu"
+            id="getpoke"
+            required="true"
+          />
 
-			</div>
+          <input type="submit" value="I Choose You" id="displayPoke" />
+        </form>
 
-			<!-- where the user can type the pokemon -->
-			<form action="">
-				<input type="text" placeholder="e.g. Pikachu" id="getpoke" required="true">
-
-				<input type="submit" value="I Choose You" id="displayPoke">
-			</form>
-
-			<!-- <form action="" id="weather">
+        <!-- <form action="" id="weather">
 				<input type="text" id="rain">
 				<input type="text" id="water">
 				<input type="submit">
 			</form> -->
 
-			<!-- enabled when form is submitted -->
-			<!-- opens modal box -->
-			<button id="playPoke" disabled>Take Care of Pikachu</button>
-		</section>
+        <!-- enabled when form is submitted -->
+        <!-- opens modal box -->
+        <button id="playPoke" disabled>Take Care of Pikachu</button>
+      </section>
 
-		
-		<!-- modal box, duh -->
-		<!-- where the game happens -->
-		<section class="modalBox">
+      <!-- modal box, duh -->
+      <!-- where the game happens -->
+      <section class="modalBox">
+        <!-- background of whatever is associated with pokemon -->
+        <div class="modalBox_field">
+          <!-- counter for pokemon's overall health -->
+          <div class="modalBox_count">
+            <div class="modalBox_count-box happy-box"></div>
+            <div class="modalBox_count-box hunger-box"></div>
+          </div>
 
-			<!-- background of whatever is associated with pokemon -->
-			<div class="modalBox_field">
+          <!-- triggered when pokemon is fed or pet -->
+          <img src="#" alt="" class="modalBox_sprite-mood" />
 
-				<!-- counter for pokemon's overall health -->
-				<div class="modalBox_count">
-					<div class="modalBox_count-box happy-box"></div>
-					<div class="modalBox_count-box hunger-box"></div>
-				</div>
-				
-				<!-- triggered when pokemon is fed or pet -->
-				<img src="#" alt="" class="modalBox_sprite-mood">
+          <!-- background of pokemon's spritesheet, animated -->
+          <div class="modalBox_sprite-img"></div>
+        </div>
 
-				<!-- background of pokemon's spritesheet, animated -->
-				<div class="modalBox_sprite-img"></div>		
-			</div>
+        <!-- another div for actions: feed / pet -->
+        <div class="modalBox_actions">
+          <button class="modalBox_actions-btn" id="petPoke">Pet</button>
+          <button class="modalBox_actions-btn" id="feedPoke">Feed</button>
+        </div>
+      </section>
+    </main>
 
-			<!-- another div for actions: feed / pet -->
-			<div class="modalBox_actions">
-				<button class="modalBox_actions-btn" id="petPoke">Pet</button>
-				<button class="modalBox_actions-btn" id="feedPoke">Feed</button>
-			</div>
-		</section>
-	</main>
+    <footer class="wrapper">
+      <p>Jessica Ho | Front-end Web Dev</p>
 
-	<footer class="wrapper">
-		<p>Jessica Ho | Front-end Web Dev</p>
+      <div class="socialContainer">
+        <a href="https://twitter.com/thisisJessHo"
+          ><i class="fa fa-twitter" aria-hidden="true"></i
+        ></a>
+        <a href="http://jessho.co/"
+          ><i class="fa fa-globe" aria-hidden="true"></i
+        ></a>
+      </div>
+    </footer>
 
-		<div class="socialContainer">
-			<a href="https://twitter.com/thisisJessHo"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="http://jessho.co/"><i class="fa fa-globe" aria-hidden="true"></i></a>
-		</div>
-	</footer>
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>	
-	<script src="script.js"></script>
-</body>
+    <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
